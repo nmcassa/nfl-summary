@@ -66,8 +66,18 @@ for item in game_list:
 		else:
 			win_prob = home_win_prob(item['away_score'] - (item['home_score'] 
 				+ item['ep']), item['game_sec_remain'] / 60, -3.5)
+		item['win_prob'] = win_prob
 	except: 
 		print("OVER")
 
-	print(win_prob)
-	print(item)
+for idx, item in enumerate(game_list): 
+	try:
+		item['win_added'] = abs(game_list[idx + 1]['win_prob'] - game_list[idx]['win_prob'])
+	except:
+		item['win_added'] = 0
+		print("OUT")
+
+sorted_list = sorted(game_list, key=lambda d: d['win_added'], reverse=True)
+
+for i in range(0, 10):
+	print(sorted_list[i])
