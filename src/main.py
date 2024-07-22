@@ -24,6 +24,12 @@ def home_win_prob(away_margin, time_left, home_vegas_line):
 
 	return one + two - three
 
+def find_winning_team(game_list):
+	return 
+
+def add_bias(game_list):
+	winner = find_winning_team(game_list)
+
 db = pd.read_csv("../data/play_by_play_2023.csv")
 
 #print(home_win_prob(7 - 10 + 0.13, 1874/60, -3))
@@ -76,6 +82,8 @@ for idx, item in enumerate(game_list):
 	except:
 		item['win_added'] = 0
 		print("OUT")
+
+#game_list = add_bias(game_list)
 
 sorted_list = sorted(game_list, key=lambda d: d['win_added'], reverse=True)
 
