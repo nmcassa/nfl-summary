@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 
+from top_k import *
+
 #https://www.pro-football-reference.com/about/win_prob.htm
 #time_lef in min
 #vegas_line is spread i believe
@@ -77,7 +79,8 @@ for idx, item in enumerate(game_list):
 		item['win_added'] = 0
 		print("OUT")
 
-sorted_list = sorted(game_list, key=lambda d: d['win_added'], reverse=True)
+top_10 = dumb_top_k(game_list, 10)
+	
+for item in top_10:
+	print(item)
 
-for i in range(0, 10):
-	print(sorted_list[i])
