@@ -39,7 +39,7 @@ db = pd.read_csv("../data/play_by_play_2023.csv")
 
 clean = db[['home_team', 'away_team', 'total_home_score', 
 	    'total_away_score', 'yrdln', 'posteam', 'ydstogo', 'down',
-            'game_seconds_remaining', 'time', 'ep', 'epa']]
+            'game_seconds_remaining', 'time', 'ep', 'epa', 'desc']]
 
 #https://www.espn.com/nfl/game/_/gameId/401547646/broncos-raiders
 clean = clean[clean['home_team'] == 'LV']
@@ -57,12 +57,13 @@ for index, row in clean.iterrows():
 	curr['away_score'] = row['total_away_score']
 	curr['yardline'] = row['yrdln']
 	curr['possession'] = row['posteam']
-	curr['yards_to_go'] = row['ydstogo']
+	curr['yards_to_go'] = row['ydstogo'] 
 	curr['down'] = row['down']
 	curr['game_sec_remain'] = row['game_seconds_remaining']
 	curr['time'] = row['time']
 	curr['ep'] = row['ep']
 	curr['epa'] = row['epa']
+	curr['desc'] = row['desc']
 	game_list.append(curr)
 
 for item in game_list:
@@ -85,7 +86,7 @@ for idx, item in enumerate(game_list):
 		item['win_added'] = 0
 		print("OUT")
 
-top_10 = dumb_top_k(game_list, 10)
+top_10 = dumb_top_k(game_list, 25)
 	
 for item in top_10:
 	print(item)

@@ -6,7 +6,7 @@ def get_top_k(plays, k):
 	ret = []
 
 	# annoying but I want indexes to stay the same after pop
-	cpy = plays.copy()
+	# cpy = plays.copy()
 
 	win_probs = []
 	for item in plays:
@@ -29,6 +29,6 @@ def dumb_top_k(plays, k):
 	
 	for item in plays:
 		if item['win_added'] >= last:
-			ret.append(item)
+			ret.append(item['desc'])
 	
 	return ret
