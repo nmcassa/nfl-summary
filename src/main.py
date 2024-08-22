@@ -4,6 +4,7 @@ import numpy as np
 from scipy import stats
 
 from top_k import *
+from bias import *
 
 #https://www.pro-football-reference.com/about/win_prob.htm
 #time_lef in min
@@ -37,7 +38,7 @@ db = pd.read_csv("../data/play_by_play_2023.csv")
 #print(home_win_prob(7 - 10 + 0.13, 1874/60, -3))
 #exit()
 
-clean = db[['home_team', 'away_team', 'total_home_score', 
+clean = db[['home_team', 'away_team', 'total_home_score', 'yards_gained', 
 	    'total_away_score', 'yrdln', 'posteam', 'ydstogo', 'down',
             'game_seconds_remaining', 'time', 'ep', 'epa', 'desc']]
 
@@ -56,6 +57,7 @@ for index, row in clean.iterrows():
 	curr['home_score'] = row['total_home_score']
 	curr['away_score'] = row['total_away_score']
 	curr['yardline'] = row['yrdln']
+	curr['yards_gained'] = row['yards_gained']
 	curr['possession'] = row['posteam']
 	curr['yards_to_go'] = row['ydstogo'] 
 	curr['down'] = row['down']
@@ -86,8 +88,17 @@ for idx, item in enumerate(game_list):
 		item['win_added'] = 0
 		print("OUT")
 
-top_10 = dumb_top_k(game_list, 25)
+top_10 = dumb_top_k(game_list, 10)
 	
+for item in top_10:
+	print(item)
+
+top_10 = add_biases(game_list)
+print()
+top_10 = dumb_top_k(top_10, 10)
+
+print("----BIASES-----")
+
 for item in top_10:
 	print(item)
 
